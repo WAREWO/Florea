@@ -3,21 +3,26 @@
     <head>
         <meta charset="utf-8">
         <link href="assets/css/style.css" rel="stylesheet">
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
-        <link rel="shortcut icon" href="assets/images/favicon.png" type="image/webp">
-        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.png">
-        <link rel="icon" href="assets/images/favicon.png" type="image/webp">
-        <title>Linktree template</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon.png">
+        <link rel="icon" href="assets/images/favicon.png" type="image/png">
+        <title>Florea — Bucket Bunga</title>
+        <meta name="theme-color" content="#fde4ec">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     </head>
     <body>
-        <!-- Snowfall Background Animation -->
-        <section class="animated-background">
-            <div id="stars1"></div>
-            <div id="stars2"></div>
-            <div id="stars3"></div>
-        </section>
-        <!-- End of Snowfall Background Animation -->
+        <!-- Blooming Lilies Background (diisi oleh assets/js/florea-bg.js) -->
+        <div class="lilies" aria-hidden="true"></div>
+
+        <!-- Floating Bubbles Background Animation -->
+        <div class="bubbles" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <!-- End of Floating Bubbles Background Animation -->
 
         <div class="min-h-full flex-h-center" id="background_div">
             <input type="hidden" value="https://bio.link" id="app-url">
@@ -28,62 +33,79 @@
 
             <div class="mt-48 page-full-wrap relative ">
                 <input type="hidden" value="creator-page" id="page-type">
-                <img class="display-image m-auto" data-src="assets/images/logo.png" src="assets/images/logo.png" alt="[Your photo alt]"/>
-                <h2 class="page-title page-text-color page-text-font mt-16 text-center">Your name</h2>
+                <img class="display-image m-auto" data-src="assets/images/logo-florea.png" src="assets/images/logo-florea.png" alt="Logo Florea"/>
+                <h2 class="page-title page-text-color page-text-font mt-16 text-center">Florea</h2>
                        
+                <!-- GANTI setiap href="#" di bawah dengan link asli -->
                 <div class="mt-24">
+                    <!-- Link Google Form pendaftaran single -->
                     <div class="page-item-wrap relative">
                         <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261652" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/linkedin.png" src="assets/images/linkedin.png" alt="LinkedIn @ [User]"/>
-                            <span class=" item-title text-center">LinkedIn @ [User]</span>
-                        </a>
-                    </div>        
-                    <div class="page-item-wrap relative">
-                        <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261685" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/github.png" src="assets/images/github.png" alt="GitHub @ [User]"/>
-                            <span class=" item-title text-center">GitHub @ [User]</span>
-                        </a>
-                    </div>    
-                    <div class="page-item-wrap relative">
-                        <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261685" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/credly.png" src="assets/images/credly.png" alt="Credly @ [User]"/>
-                            <span class=" item-title text-center">Credly @ [User]</span>
-                        </a>
-                    </div>                            
-                    <div class="page-item-wrap relative">
-                        <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261685" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/hackerrank.png" src="assets/images/hackerrank.png" alt="HackerRank @ [User]"/>
-                            <span class=" item-title text-center">HackerRank @ [User]</span>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="#">
+                            <span class="link-each-image link-emoji" aria-hidden="true">🎟️</span>
+                            <span class="item-title text-center">Register Single</span>
                         </a>
                     </div>
+                    <!-- Link Google Form pendaftaran couple (limited) -->
                     <div class="page-item-wrap relative">
                         <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261685" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/replit.png" src="assets/images/replit.png" alt="Replit @ [User]"/>
-                            <span class=" item-title text-center">Replit @ [User]</span>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="#">
+                            <span class="link-each-image link-emoji" aria-hidden="true">🎟️</span>
+                            <span class="item-title text-center">Register Couple<small class="item-subtitle">Limited</small></span>
                         </a>
                     </div>
+                    <!-- Info event: tanggal, jam, venue, rangkaian kegiatan, dress code -->
                     <div class="page-item-wrap relative">
                         <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261685" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/instagram.png" src="assets/images/instagram.png" alt="Instagram @ [User]"/>
-                            <span class=" item-title text-center">Instagram @ [User]</span>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="#">
+                            <span class="link-each-image link-emoji" aria-hidden="true">📖</span>
+                            <span class="item-title text-center">Event Guide</span>
                         </a>
                     </div>
+                    <!-- Pertanyaan umum: biaya, benefit, bawa teman, batas usia, ketentuan karya -->
                     <div class="page-item-wrap relative">
                         <div class="page-item flex-both-center absolute"></div>
-                        <a target="_blank"  class="page-item-each py-10 flex-both-center" href="[Link]" data-id="261685" data-type="page_item">
-                            <img class="link-each-image" data-src="assets/images/facebook.png" src="assets/images/facebook.png" alt="Facebook @ [User]"/>
-                            <span class=" item-title text-center">Facebook @ [User]</span>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="#">
+                            <span class="link-each-image link-emoji" aria-hidden="true">❓</span>
+                            <span class="item-title text-center">FAQ</span>
                         </a>
-                    </div>                    
-                </div>                                                                                
+                    </div>
+                    <!-- Google Maps Rustic Market, Jl. Golf 1 Surabaya No.159 A, Gn. Sari, Kec. Dukuhpakis, Surabaya, Jawa Timur 60224 -->
+                    <div class="page-item-wrap relative">
+                        <div class="page-item flex-both-center absolute"></div>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="https://share.google/X6Z30eaYjZV4WN2lc">
+                            <span class="link-each-image link-emoji" aria-hidden="true">📍</span>
+                            <span class="item-title text-center">Location<small class="item-subtitle">Rustic Market, Jl. Golf 1 No.159 A, Surabaya</small></span>
+                        </a>
+                    </div>
+                    <!-- CP Humas via WhatsApp: +62 857-3698-6408 -->
+                    <div class="page-item-wrap relative">
+                        <div class="page-item flex-both-center absolute"></div>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="https://wa.me/6285736986408?text=Halo%20kak%2C%20saya%20ingin%20bertanya%20tentang%20event%20Florea">
+                            <span class="link-each-image link-emoji" aria-hidden="true">📱</span>
+                            <span class="item-title text-center">Contact Humas</span>
+                        </a>
+                    </div>
+                    <!-- Instagram event/EO -->
+                    <div class="page-item-wrap relative">
+                        <div class="page-item flex-both-center absolute"></div>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="#">
+                            <span class="link-each-image link-emoji" aria-hidden="true">📸</span>
+                            <span class="item-title text-center">Instagram</span>
+                        </a>
+                    </div>
+                    <!-- Partnership / sponsorship untuk brand & UMKM -->
+                    <div class="page-item-wrap relative">
+                        <div class="page-item flex-both-center absolute"></div>
+                        <a target="_blank" rel="noopener" class="page-item-each py-10 flex-both-center" href="#">
+                            <span class="link-each-image link-emoji" aria-hidden="true">🤝</span>
+                            <span class="item-title text-center">Partnership / Sponsorship</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        <script src="assets/js/florea-bg.js"></script>
     </body>
 
     <!--

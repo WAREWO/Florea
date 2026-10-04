@@ -1451,3 +1451,384 @@ body,html{
         transform: translateY(-2000px);
     }
 }
+
+/*-----------------------Florea: tema bunga + responsive-----------------------*/
+/* Font Luckybones (assets/fonts/Luckybones-Bold.otf). Kalau gagal dimuat, memakai Inter. */
+@font-face{
+    font-family:"Luckybones";
+    src:url("../fonts/Luckybones-Bold.otf") format("opentype");
+    font-weight:400 700;
+    font-display:swap;
+}
+
+.page-text-font,
+.page-item-each{
+    font-family:"Luckybones", "Inter", sans-serif;
+}
+
+:root{
+    --florea-rose:#c2185b;
+    --florea-rose-dark:#7a1f3d;
+    --florea-blush:#fde4ec;
+    --florea-cream:#fff8f3;
+}
+
+html{
+    background-color:var(--florea-blush);
+}
+
+/* body harus transparan agar lapisan bunga (z-index negatif) tidak tertutup */
+body{
+    background-color:transparent;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* Latar gradasi lembut pink-krem dengan semburat hijau taman, dibuat fixed lewat
+   pseudo-element agar tetap mulus di iOS (background-attachment:fixed tidak didukung di sana) */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    background:
+        radial-gradient(circle at 18% 12%, rgba(255,255,255,.95) 0, transparent 38%),
+        radial-gradient(circle at 85% 8%, rgba(248,187,208,.75) 0, transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(165,214,167,.35) 0, transparent 42%),
+        radial-gradient(circle at 92% 80%, rgba(200,230,201,.4) 0, transparent 40%),
+        linear-gradient(165deg, var(--florea-cream) 0%, var(--florea-blush) 55%, #f8d0de 100%);
+}
+
+/* Matikan animasi bintang/salju lama */
+.animated-background{
+    display:none;
+}
+
+/* Tangkai lily pink (3 bunga per tangkai) yang bermekaran (SVG dibuat oleh assets/js/florea-bg.js) */
+.lilies{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.lily{
+    position:absolute;
+    left:var(--x);
+    top:var(--y);
+    width:var(--size);
+    aspect-ratio:320/420;
+    transform:translate(-50%,-50%) rotate(var(--tilt));
+    animation:lilySway 7s ease-in-out calc(var(--delay) + 2s) infinite alternate;
+    filter:drop-shadow(0 8px 14px rgba(173,20,87,.18));
+}
+
+.lily svg{
+    width:100%;
+    height:100%;
+    overflow:visible;
+}
+
+/* Batang tumbuh dari bawah */
+.lily .stem{
+    fill:none;
+    stroke:#558b2f;
+    stroke-width:5;
+    stroke-linecap:round;
+    stroke-dasharray:1;
+    stroke-dashoffset:1;
+    animation:lilyStem .6s ease-out var(--delay) forwards;
+}
+
+.lily .leaf{
+    transform:rotate(var(--r)) scale(.2);
+    opacity:0;
+    animation:lilyLeaf .6s ease-out calc(var(--delay) + .25s) forwards;
+}
+
+/* Kelopak: mulai kuncup lalu mekar cepat, setelah itu "bernapas" pelan */
+.lily .petal{
+    transform:rotate(var(--r)) scale(.12,.3);
+    opacity:0;
+    animation:
+        lilyBloom 1.1s cubic-bezier(.2,.8,.25,1) calc(var(--delay) + var(--fd) + var(--pd)) forwards,
+        lilyBreathe 4s ease-in-out calc(var(--delay) + var(--fd) + var(--pd) + 1.1s) infinite alternate;
+}
+
+.lily .stamens{
+    opacity:0;
+    transform:scale(.4);
+    animation:lilyStamens .5s ease-out calc(var(--delay) + var(--fd) + .6s) forwards;
+}
+
+@keyframes lilyStem{
+    to{stroke-dashoffset:0}
+}
+
+@keyframes lilyLeaf{
+    to{transform:rotate(var(--r)) scale(1);opacity:1}
+}
+
+@keyframes lilyBloom{
+    0%{transform:rotate(var(--r)) scale(.12,.3);opacity:0}
+    25%{opacity:1}
+    100%{transform:rotate(var(--r)) scale(1);opacity:1}
+}
+
+@keyframes lilyBreathe{
+    from{transform:rotate(var(--r)) scale(1);opacity:1}
+    to{transform:rotate(calc(var(--r) + 3deg)) scale(1.05);opacity:1}
+}
+
+@keyframes lilyStamens{
+    to{transform:scale(1);opacity:1}
+}
+
+@keyframes lilySway{
+    from{transform:translate(-50%,-50%) rotate(var(--tilt))}
+    to{transform:translate(-50%,-50%) rotate(calc(var(--tilt) + 4deg))}
+}
+
+/* Tablet: tangkai sedikit lebih kecil */
+@media (max-width:768px){
+    .lily{
+        width:calc(var(--size) * .85);
+    }
+}
+
+/* HP: sembunyikan tangkai tambahan agar tombol tetap mudah dibaca */
+@media (max-width:480px){
+    .lily{
+        width:calc(var(--size) * .8);
+    }
+    .lily.lily-sm{
+        display:none;
+    }
+}
+
+/* Gelembung sabun yang melayang naik */
+.bubbles{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.bubbles span{
+    position:absolute;
+    bottom:-120px;
+    left:var(--x);
+    width:var(--s);
+    height:var(--s);
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,.95) 0 5%, rgba(255,255,255,.25) 12%, transparent 26%),
+        radial-gradient(circle at 72% 78%, rgba(255,255,255,.5) 0 3%, transparent 12%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.08) 50%, rgba(236,64,122,.28) 68%, rgba(100,181,246,.5) 82%, rgba(255,255,255,.95) 100%);
+    border:1.5px solid rgba(255,255,255,.85);
+    box-sizing:border-box;
+    box-shadow:
+        inset 0 0 10px rgba(255,255,255,.7),
+        inset -6px -8px 16px rgba(100,181,246,.4),
+        inset 6px 6px 14px rgba(236,64,122,.35),
+        0 4px 14px rgba(173,20,87,.18);
+    animation:
+        bubbleRise var(--d) linear var(--delay) infinite,
+        bubbleSway calc(var(--d) / 4) ease-in-out var(--delay) infinite alternate;
+    opacity:0;
+}
+
+.bubbles span:nth-child(1){--x:4%;--s:70px;--d:16s;--delay:0s}
+.bubbles span:nth-child(2){--x:16%;--s:34px;--d:12s;--delay:3s}
+.bubbles span:nth-child(3){--x:26%;--s:96px;--d:20s;--delay:6s}
+.bubbles span:nth-child(4){--x:38%;--s:28px;--d:11s;--delay:1s}
+.bubbles span:nth-child(5){--x:50%;--s:58px;--d:15s;--delay:9s}
+.bubbles span:nth-child(6){--x:62%;--s:40px;--d:13s;--delay:4s}
+.bubbles span:nth-child(7){--x:72%;--s:110px;--d:22s;--delay:2s}
+.bubbles span:nth-child(8){--x:84%;--s:46px;--d:14s;--delay:7s}
+.bubbles span:nth-child(9){--x:92%;--s:76px;--d:18s;--delay:11s}
+.bubbles span:nth-child(10){--x:10%;--s:50px;--d:17s;--delay:13s}
+.bubbles span:nth-child(11){--x:56%;--s:84px;--d:21s;--delay:15s}
+.bubbles span:nth-child(12){--x:78%;--s:30px;--d:10s;--delay:8s}
+.bubbles span:nth-child(13){--x:2%;--s:38px;--d:13s;--delay:5s}
+.bubbles span:nth-child(14){--x:21%;--s:62px;--d:17s;--delay:10s}
+.bubbles span:nth-child(15){--x:33%;--s:44px;--d:12s;--delay:14s}
+.bubbles span:nth-child(16){--x:45%;--s:90px;--d:19s;--delay:3.5s}
+.bubbles span:nth-child(17){--x:59%;--s:26px;--d:9s;--delay:6.5s}
+.bubbles span:nth-child(18){--x:68%;--s:66px;--d:16s;--delay:12s}
+.bubbles span:nth-child(19){--x:81%;--s:100px;--d:23s;--delay:9.5s}
+.bubbles span:nth-child(20){--x:96%;--s:42px;--d:12s;--delay:1.5s}
+.bubbles span:nth-child(21){--x:8%;--s:88px;--d:20s;--delay:17s}
+.bubbles span:nth-child(22){--x:28%;--s:24px;--d:9s;--delay:11s}
+.bubbles span:nth-child(23){--x:41%;--s:54px;--d:15s;--delay:16s}
+.bubbles span:nth-child(24){--x:52%;--s:36px;--d:11s;--delay:0.5s}
+.bubbles span:nth-child(25){--x:64%;--s:78px;--d:18s;--delay:19s}
+.bubbles span:nth-child(26){--x:75%;--s:48px;--d:14s;--delay:5.5s}
+.bubbles span:nth-child(27){--x:88%;--s:32px;--d:10s;--delay:13.5s}
+.bubbles span:nth-child(28){--x:99%;--s:72px;--d:17s;--delay:7.5s}
+
+@keyframes bubbleRise{
+    0%{bottom:-120px;opacity:0}
+    8%{opacity:.9}
+    85%{opacity:.85}
+    100%{bottom:110vh;opacity:0}
+}
+
+@keyframes bubbleSway{
+    0%{transform:translateX(-18px) scale(1)}
+    50%{transform:translateX(12px) scale(1.04,.97)}
+    100%{transform:translateX(22px) scale(.98,1.03)}
+}
+
+@media (max-width:480px){
+    .bubbles span{
+        width:calc(var(--s) * .7);
+        height:calc(var(--s) * .7);
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+    .bubbles{display:none}
+    .page-item-wrap{transition:none}
+    /* Lily langsung tampil mekar tanpa animasi */
+    .lily,.lily .petal,.lily .leaf,.lily .stamens,.lily .stem{animation:none}
+    .lily .stem{stroke-dashoffset:0}
+    .lily .petal,.lily .leaf{transform:rotate(var(--r));opacity:1}
+    .lily .stamens{transform:none;opacity:1}
+}
+
+/* Teks & kartu link disesuaikan dengan latar terang */
+.page-text-color{
+    color:var(--florea-rose-dark);
+}
+
+.page-title{
+    font-size:clamp(28px, 6vw, 34px);
+    letter-spacing:.5px;
+}
+
+/* Logo Florea sudah punya bingkai lingkaran sendiri, jadi cukup bayangan */
+.display-image{
+    width:clamp(130px, 38vw, 170px);
+    height:clamp(130px, 38vw, 170px);
+    box-shadow:0 10px 28px -10px rgba(194,24,91,.5);
+}
+
+.page-item{
+    background:rgba(255,255,255,.88);
+    border:1px solid rgba(240,98,146,.25);
+    border-radius:16px;
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);
+    box-shadow:0 6px 18px -8px rgba(194,24,91,.35);
+    transition:background .2s ease, border-color .2s ease;
+}
+
+.page-item-each,
+.page-item-wrap{
+    border-radius:16px;
+}
+
+.page-item-each{
+    color:#641832;
+    font-size:18px;
+    font-weight:700;
+    line-height:1.5;
+}
+
+.link-each-image{
+    border-radius:50%;
+}
+
+/* Ikon emoji di dalam lingkaran pink, menggantikan gambar ikon */
+.link-emoji{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--florea-blush);
+    border:1px solid rgba(240,98,146,.3);
+    box-sizing:border-box;
+    font-size:22px;
+    line-height:1;
+}
+
+.item-subtitle{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.5;
+    color:#7a1f3d;
+    margin-top:4px;
+}
+
+.page-item-each:focus-visible{
+    outline:3px solid var(--florea-rose);
+    outline-offset:3px;
+}
+
+/* Efek hover hanya untuk perangkat yang punya mouse */
+.page-item-wrap:hover{
+    transform:none;
+}
+
+@media (hover:hover){
+    .page-item-wrap:hover{
+        transform:translate3d(0,0,0) scale(1.02);
+    }
+    .page-item-wrap:hover .page-item{
+        background:#fff;
+        border-color:rgba(240,98,146,.6);
+    }
+}
+
+/* Layout responsive */
+.page-full-wrap{
+    width:100%;
+    max-width:680px;
+    box-sizing:border-box;
+    padding:0 16px 96px;
+}
+
+.item-title{
+    width:auto;
+    max-width:calc(100% - 130px);
+}
+
+@media (max-width:768px){
+    .page-full-wrap{
+        width:100%;
+        max-width:560px;
+    }
+}
+
+@media (max-width:480px){
+    .mt-48{
+        margin-top:32px;
+    }
+    .page-full-wrap{
+        padding:0 16px 64px;
+    }
+    .page-item-each{
+        font-size:17px;
+        min-height:60px;
+    }
+    .page-item-wrap{
+        margin:12px 0;
+    }
+    .link-each-image{
+        width:38px;
+        height:38px;
+    }
+    .item-title{
+        max-width:calc(100% - 110px);
+    }
+}
+
+@media (min-width:1200px){
+    .mt-48{
+        margin-top:72px;
+    }
+}
